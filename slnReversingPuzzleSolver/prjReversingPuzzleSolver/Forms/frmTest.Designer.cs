@@ -33,8 +33,8 @@ namespace prjReversingPuzzleSolver.Forms
             this.radCross = new System.Windows.Forms.RadioButton();
             this.rad3by3 = new System.Windows.Forms.RadioButton();
             this.pnlBoard = new System.Windows.Forms.Panel();
-            this.btnClose = new System.Windows.Forms.Button();
             this.uclBoard = new prjReversingPuzzleSolver.Forms.uclBoard();
+            this.btnClose = new System.Windows.Forms.Button();
             this.pnlBoard.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,6 +83,14 @@ namespace prjReversingPuzzleSolver.Forms
             this.pnlBoard.Size = new System.Drawing.Size(776, 362);
             this.pnlBoard.TabIndex = 4;
             // 
+            // uclBoard
+            // 
+            this.uclBoard.enmTurnMode = prjReversingPuzzleSolver.Forms.Enum_TurnMode.Self;
+            this.uclBoard.Location = new System.Drawing.Point(3, 3);
+            this.uclBoard.Name = "uclBoard";
+            this.uclBoard.Size = new System.Drawing.Size(150, 150);
+            this.uclBoard.TabIndex = 3;
+            // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -93,14 +101,6 @@ namespace prjReversingPuzzleSolver.Forms
             this.btnClose.TabIndex = 5;
             this.btnClose.Text = "閉じる";
             this.btnClose.UseVisualStyleBackColor = true;
-            // 
-            // uclBoard
-            // 
-            this.uclBoard.enmTurnMode = prjReversingPuzzleSolver.Forms.Enum_TurnMode.Self;
-            this.uclBoard.Location = new System.Drawing.Point(3, 3);
-            this.uclBoard.Name = "uclBoard";
-            this.uclBoard.Size = new System.Drawing.Size(150, 150);
-            this.uclBoard.TabIndex = 3;
             // 
             // frmTest
             // 

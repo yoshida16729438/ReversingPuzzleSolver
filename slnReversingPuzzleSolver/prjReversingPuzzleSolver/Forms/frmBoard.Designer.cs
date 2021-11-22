@@ -30,10 +30,10 @@ namespace prjReversingPuzzleSolver.Forms
         private void InitializeComponent()
         {
             this.pnlBoard = new System.Windows.Forms.Panel();
-            this.btnOK = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.uclBoard_Right = new prjReversingPuzzleSolver.Forms.uclBoard();
             this.uclBoard_Left = new prjReversingPuzzleSolver.Forms.uclBoard();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.pnlBoard.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +48,24 @@ namespace prjReversingPuzzleSolver.Forms
             this.pnlBoard.Name = "pnlBoard";
             this.pnlBoard.Size = new System.Drawing.Size(528, 393);
             this.pnlBoard.TabIndex = 0;
+            // 
+            // uclBoard_Right
+            // 
+            this.uclBoard_Right.enmTurnMode = prjReversingPuzzleSolver.Forms.Enum_TurnMode.Self;
+            this.uclBoard_Right.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.uclBoard_Right.Location = new System.Drawing.Point(159, 3);
+            this.uclBoard_Right.Name = "uclBoard_Right";
+            this.uclBoard_Right.Size = new System.Drawing.Size(150, 150);
+            this.uclBoard_Right.TabIndex = 1;
+            // 
+            // uclBoard_Left
+            // 
+            this.uclBoard_Left.enmTurnMode = prjReversingPuzzleSolver.Forms.Enum_TurnMode.Self;
+            this.uclBoard_Left.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.uclBoard_Left.Location = new System.Drawing.Point(3, 3);
+            this.uclBoard_Left.Name = "uclBoard_Left";
+            this.uclBoard_Left.Size = new System.Drawing.Size(150, 150);
+            this.uclBoard_Left.TabIndex = 0;
             // 
             // btnOK
             // 
@@ -72,24 +90,6 @@ namespace prjReversingPuzzleSolver.Forms
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // uclBoard_Right
-            // 
-            this.uclBoard_Right.enmTurnMode = prjReversingPuzzleSolver.Forms.Enum_TurnMode.Self;
-            this.uclBoard_Right.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.uclBoard_Right.Location = new System.Drawing.Point(159, 3);
-            this.uclBoard_Right.Name = "uclBoard_Right";
-            this.uclBoard_Right.Size = new System.Drawing.Size(150, 150);
-            this.uclBoard_Right.TabIndex = 1;
-            // 
-            // uclBoard_Left
-            // 
-            this.uclBoard_Left.enmTurnMode = prjReversingPuzzleSolver.Forms.Enum_TurnMode.Self;
-            this.uclBoard_Left.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.uclBoard_Left.Location = new System.Drawing.Point(3, 3);
-            this.uclBoard_Left.Name = "uclBoard_Left";
-            this.uclBoard_Left.Size = new System.Drawing.Size(150, 150);
-            this.uclBoard_Left.TabIndex = 0;
             // 
             // frmBoard
             // 
