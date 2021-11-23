@@ -107,17 +107,9 @@ namespace prjReversingPuzzleSolver.Classes
         /// <summary>
         /// 【合同式の法】
         /// </summary>
-        private int m_intBase;
+        public readonly int intBase;
 
         #region ●Property
-
-        /// <summary>
-        /// 【合同式の法】
-        /// </summary>
-        public int intBase
-        {
-            get { return this.m_intBase; }
-        }
 
         /// <summary>
         /// 【座標でのアクセス】
@@ -128,7 +120,7 @@ namespace prjReversingPuzzleSolver.Classes
         public new int this[int y,int x]
         {
             get { return base[y, x]; }
-            set { base[y, x] = value % this.m_intBase; }
+            set { base[y, x] = value % this.intBase; }
         }
 
         /// <summary>
@@ -139,7 +131,7 @@ namespace prjReversingPuzzleSolver.Classes
         public new int this[int index]
         {
             get { return base[index]; }
-            set { base[index] = value % this.m_intBase; }
+            set { base[index] = value % this.intBase; }
         }
 
         #endregion
@@ -154,11 +146,11 @@ namespace prjReversingPuzzleSolver.Classes
         /// <returns></returns>
         public static clsIntArray operator +(clsIntArray A, clsIntArray B)
         {
-            if (A.intWidth != B.intWidth || A.intHeight != B.intHeight || A.m_intBase != B.m_intBase)
+            if (A.intWidth != B.intWidth || A.intHeight != B.intHeight || A.intBase != B.intBase)
             {
                 throw new ArgumentException("配列の幅、高さ、合同式の法のいずれかが異なります。");
             }
-            var Ans = new clsIntArray(A.intWidth, A.intHeight, A.m_intBase);
+            var Ans = new clsIntArray(A.intWidth, A.intHeight, A.intBase);
 
             for (int i = 0; i < A.intWidth * A.intHeight; i++)
             {
@@ -187,7 +179,7 @@ namespace prjReversingPuzzleSolver.Classes
         /// <returns></returns>
         public static clsIntArray operator *(clsIntArray A, int B)
         {
-            var Ans = new clsIntArray(A.intWidth, A.intHeight, A.m_intBase);
+            var Ans = new clsIntArray(A.intWidth, A.intHeight, A.intBase);
 
             for (int i = 0; i < A.intWidth * A.intHeight; i++)
             {
@@ -220,7 +212,7 @@ namespace prjReversingPuzzleSolver.Classes
         /// <param name="bas">合同式の法</param>
         public clsIntArray(int width,int height,int bas):base(width,height)
         {
-            this.m_intBase = bas;
+            this.intBase = bas;
 
             for(int y = 0; y < height; y++)
             {
@@ -237,13 +229,24 @@ namespace prjReversingPuzzleSolver.Classes
         /// <returns></returns>
         public clsIntArray insCreateCopy()
         {
-            var insCopy = new clsIntArray(this.intWidth, this.intHeight, this.m_intBase);
+            var insCopy = new clsIntArray(this.intWidth, this.intHeight, this.intBase);
             
             for(int i = 0; i < this.intLen; i++)
             {
                 insCopy[i] = this[i];
             }
             return insCopy;
+        }
+
+        /// <summary>
+        /// 【出力用1行文字列作成】
+        /// </summary>
+        /// <returns></returns>
+        public string strOneLine()
+        {
+            var insBuilder = new System.Text.StringBuilder();
+            for (int i = 0; i < this.intLen; i++) insBuilder.Append(this[i].ToString().PadLeft(3));
+            return insBuilder.ToString();
         }
 
         /// <summary>
@@ -271,10 +274,12 @@ namespace prjReversingPuzzleSolver.Classes
     }
 
     /// <summary>
-    /// 【左辺・右辺のペア】
+    /// 【方程式（左辺・右辺のペア）】
     /// </summary>
-    public class clsBoardAnsPair
+    public class clsEquation
     {
+
+        #region ●変数
 
         /// <summary>
         /// 【左辺（最初はクリック時の影響範囲を記述する）】
@@ -285,6 +290,8 @@ namespace prjReversingPuzzleSolver.Classes
         /// 【右辺（最初は結果と初期値の差分を設定する）】
         /// </summary>
         private clsIntArray m_insRight;
+
+        #endregion
 
         #region ●Property
 
@@ -316,14 +323,14 @@ namespace prjReversingPuzzleSolver.Classes
         /// <param name="A"></param>
         /// <param name="B"></param>
         /// <returns></returns>
-        public static clsBoardAnsPair operator +(clsBoardAnsPair A,clsBoardAnsPair B)
+        public static clsEquation operator +(clsEquation A,clsEquation B)
         {
             if (A.m_insLeft.intWidth != B.m_insLeft.intWidth || A.m_insLeft.intHeight != B.m_insLeft.intHeight || A.m_insLeft.intBase != B.m_insLeft.intBase)
             {
                 throw new ArgumentException("配列の幅、高さ、合同式の法のいずれかが異なります。");
             }
 
-            var Ans = new clsBoardAnsPair(A.m_insLeft.intWidth, A.m_insLeft.intHeight, A.m_insLeft.intBase);
+            var Ans = new clsEquation(A.m_insLeft.intWidth, A.m_insLeft.intHeight, A.m_insLeft.intBase);
             Ans.m_insLeft = A.m_insLeft + B.m_insLeft;
             Ans.m_insRight = A.m_insRight + B.m_insRight;
 
@@ -336,9 +343,9 @@ namespace prjReversingPuzzleSolver.Classes
         /// <param name="A"></param>
         /// <param name="B"></param>
         /// <returns></returns>
-        public static clsBoardAnsPair operator *(clsBoardAnsPair A,int B)
+        public static clsEquation operator *(clsEquation A,int B)
         {
-            var Ans = new clsBoardAnsPair(A.insLeft.intWidth, A.insLeft.intHeight, A.insLeft.intBase);
+            var Ans = new clsEquation(A.insLeft.intWidth, A.insLeft.intHeight, A.insLeft.intBase);
             Ans.m_insLeft = A.m_insLeft.insCreateCopy() * B;
             Ans.m_insRight = A.m_insRight.insCreateCopy() * B;
             return Ans;
@@ -350,7 +357,7 @@ namespace prjReversingPuzzleSolver.Classes
         /// <param name="A"></param>
         /// <param name="B"></param>
         /// <returns></returns>
-        public static clsBoardAnsPair operator *(int A,clsBoardAnsPair B)
+        public static clsEquation operator *(int A,clsEquation B)
         {
             return B * A;
         }
@@ -361,7 +368,7 @@ namespace prjReversingPuzzleSolver.Classes
         /// <param name="A"></param>
         /// <param name="B"></param>
         /// <returns></returns>
-        public static clsBoardAnsPair operator -(clsBoardAnsPair A,clsBoardAnsPair B)
+        public static clsEquation operator -(clsEquation A,clsEquation B)
         {
             return A + (-1 * B);
         }
@@ -374,7 +381,7 @@ namespace prjReversingPuzzleSolver.Classes
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <param name="bas"></param>
-        public clsBoardAnsPair(int width,int height,int bas)
+        public clsEquation(int width,int height,int bas)
         {
             this.m_insLeft = new clsIntArray(width, height, bas);
             this.m_insRight = new clsIntArray(width, height, bas);
@@ -382,21 +389,85 @@ namespace prjReversingPuzzleSolver.Classes
     }
 
     /// <summary>
-    /// 【Swap可能なリスト】
+    /// 【行列管理クラス】
     /// </summary>
-    /// <typeparam name="T">型パラメータ</typeparam>
-    public class clsSwapList<T>:List<T>{
+    public class clsMatrix
+    {
+        #region ●変数
 
         /// <summary>
-        /// 【Swap】
+        /// 【幅】
         /// </summary>
-        /// <param name="index1"></param>
-        /// <param name="index2"></param>
+        public readonly int intWidth;
+
+        /// <summary>
+        /// 【高さ】
+        /// </summary>
+        public readonly int intHeight;
+
+        /// <summary>
+        /// 【合同式の法】
+        /// </summary>
+        public readonly int intBase;
+
+        /// <summary>
+        /// 【行列実体】
+        /// </summary>
+        public clsArray<clsEquation> insMatrix;
+
+        #endregion
+
+        #region ●処理
+
+        /// <summary>
+        /// 【New】
+        /// </summary>
+        /// <param name="intWidth">幅</param>
+        /// <param name="intHeight">高さ</param>
+        /// <param name="intBas">合同式の法</param>
+        public clsMatrix(int intWidth,int intHeight,int intBas)
+        {
+            this.intWidth = intWidth;
+            this.intHeight = intHeight;
+            this.intBase = intBas;
+
+            this.insMatrix = new clsArray<clsEquation>(intWidth, intHeight);
+            for(int i = 0; i < intWidth * intHeight; i++)
+            {
+                this.insMatrix[i] = new clsEquation(intWidth, intHeight, intBas);
+            }
+        }
+
+        /// <summary>
+        /// 【インデックス入れ替え】
+        /// </summary>
+        /// <param name="index1">入れ替え対象インデックス1</param>
+        /// <param name="index2">入れ替え対象インデックス2</param>
         public void subSwap(int index1,int index2)
         {
-            var temp = this[index1];
-            this[index1] = this[index2];
-            this[index2] = temp;
+            var temp = this.insMatrix[index1];
+            this.insMatrix[index1] = this.insMatrix[index2];
+            this.insMatrix[index2] = temp;
         }
+
+        /// <summary>
+        /// 【行列を全てDebug出力】
+        /// </summary>
+        /// <param name="strOptional">オプション文字列</param>
+        public void subOutputFile(string strOptional = "")
+        {
+            var insBuilder = new System.Text.StringBuilder();
+            for (int i = 0; i < this.insMatrix.intLen; i++) insBuilder.AppendLine(this.insMatrix[i].insLeft.strOneLine() + " = " + this.insMatrix[i].insRight.strOneLine());
+            
+            using(var insWriter=new System.IO.StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\Out.txt", true))
+            {
+                if (strOptional != string.Empty) insWriter.WriteLine(strOptional);
+                insWriter.WriteLine(insBuilder.ToString());
+                insWriter.Close();
+            }
+        }
+
+        #endregion
+
     }
 }

@@ -147,22 +147,23 @@ namespace prjReversingPuzzleSolver.Forms
             var insSolve = new Classes.clsSolve();
             insSolve.insInitial = this.m_insInitial;
             insSolve.insFinal = this.m_insFinal;
-            insSolve.intTurn = 4;
+            if (this.radReverse_UDLR.Checked) insSolve.enmTurnMode = Enum_TurnMode.Cross;
+            else insSolve.enmTurnMode = Enum_TurnMode.Square;
 
             insSolve.subSolve();
             Classes.clsUtils.blnShowMsgBox("完了", Classes.clsUtils.Enum_MsgBoxStyle.Information);
-            foreach(var insArray in insSolve.lstAns)
-            {
-                for(int i = 0; i < insArray.intHeight; i++)
-                {
-                    for(int j = 0; j < insArray.intWidth; j++)
-                    {
-                        Console.Write(insArray[j, i]);
-                    }
-                    Console.WriteLine();
-                }
-                Console.WriteLine();
-            }
+            //foreach(var insArray in insSolve.lstAns)
+            //{
+            //    for(int i = 0; i < insArray.intHeight; i++)
+            //    {
+            //        for(int j = 0; j < insArray.intWidth; j++)
+            //        {
+            //            Console.Write(insArray[j, i]);
+            //        }
+            //        Console.WriteLine();
+            //    }
+            //    Console.WriteLine();
+            //}
         }
 
         /// <summary>

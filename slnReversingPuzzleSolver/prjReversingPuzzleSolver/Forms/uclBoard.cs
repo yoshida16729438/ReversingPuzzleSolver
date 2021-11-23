@@ -19,17 +19,17 @@ namespace prjReversingPuzzleSolver.Forms
         /// <summary>
         /// 【自分だけ】
         /// </summary>
-        Self,
+        Self=0,
 
         /// <summary>
         /// 【十字形】
         /// </summary>
-        Cross,
+        Cross=4,
 
         /// <summary>
         /// 【3×3】
         /// </summary>
-        Square
+        Square=8
     }
 
     /// <summary>
