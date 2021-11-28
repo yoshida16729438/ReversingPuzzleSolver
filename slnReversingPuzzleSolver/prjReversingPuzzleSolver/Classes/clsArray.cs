@@ -120,7 +120,7 @@ namespace prjReversingPuzzleSolver.Classes
         public new int this[int y,int x]
         {
             get { return base[y, x]; }
-            set { base[y, x] = value % this.intBase; }
+            set { base[y, x] = (value % this.intBase + this.intBase) % this.intBase; }
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace prjReversingPuzzleSolver.Classes
         public new int this[int index]
         {
             get { return base[index]; }
-            set { base[index] = value % this.intBase; }
+            set { base[index] = (value % this.intBase + this.intBase) % this.intBase; }
         }
 
         #endregion
@@ -406,6 +406,11 @@ namespace prjReversingPuzzleSolver.Classes
         public readonly int intHeight;
 
         /// <summary>
+        /// 【配列長さ】
+        /// </summary>
+        public readonly int intLen;
+
+        /// <summary>
         /// 【合同式の法】
         /// </summary>
         public readonly int intBase;
@@ -413,7 +418,7 @@ namespace prjReversingPuzzleSolver.Classes
         /// <summary>
         /// 【行列実体】
         /// </summary>
-        public clsArray<clsEquation> insMatrix;
+        public clsArray<clsEquation> insEquation;
 
         #endregion
 
@@ -429,12 +434,13 @@ namespace prjReversingPuzzleSolver.Classes
         {
             this.intWidth = intWidth;
             this.intHeight = intHeight;
+            this.intLen = intWidth * intHeight;
             this.intBase = intBas;
 
-            this.insMatrix = new clsArray<clsEquation>(intWidth, intHeight);
+            this.insEquation = new clsArray<clsEquation>(intWidth, intHeight);
             for(int i = 0; i < intWidth * intHeight; i++)
             {
-                this.insMatrix[i] = new clsEquation(intWidth, intHeight, intBas);
+                this.insEquation[i] = new clsEquation(intWidth, intHeight, intBas);
             }
         }
 
@@ -445,19 +451,19 @@ namespace prjReversingPuzzleSolver.Classes
         /// <param name="index2">入れ替え対象インデックス2</param>
         public void subSwap(int index1,int index2)
         {
-            var temp = this.insMatrix[index1];
-            this.insMatrix[index1] = this.insMatrix[index2];
-            this.insMatrix[index2] = temp;
+            var temp = this.insEquation[index1];
+            this.insEquation[index1] = this.insEquation[index2];
+            this.insEquation[index2] = temp;
         }
 
         /// <summary>
-        /// 【行列を全てDebug出力】
+        /// 【行列を全てファイル出力】
         /// </summary>
         /// <param name="strOptional">オプション文字列</param>
         public void subOutputFile(string strOptional = "")
         {
             var insBuilder = new System.Text.StringBuilder();
-            for (int i = 0; i < this.insMatrix.intLen; i++) insBuilder.AppendLine(this.insMatrix[i].insLeft.strOneLine() + " = " + this.insMatrix[i].insRight.strOneLine());
+            for (int i = 0; i < this.insEquation.intLen; i++) insBuilder.AppendLine(this.insEquation[i].insLeft.strOneLine() + " = " + this.insEquation[i].insRight.strOneLine());
             
             using(var insWriter=new System.IO.StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\Out.txt", true))
             {

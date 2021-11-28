@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace prjReversingPuzzleSolver.Classes
 {
+    /// <summary>
+    /// 【ユーティリティ】
+    /// </summary>
     static class clsUtils
     {
         /// <summary>
@@ -61,6 +64,19 @@ namespace prjReversingPuzzleSolver.Classes
             m_dicMsgBoxIcon.Add(Enum_MsgBoxStyle.Exclamation, MessageBoxIcon.Exclamation);
             m_dicMsgBoxIcon.Add(Enum_MsgBoxStyle.Critical, MessageBoxIcon.Error);
             m_dicMsgBoxIcon.Add(Enum_MsgBoxStyle.Question, MessageBoxIcon.Question);
+        }
+
+        /// <summary>
+        /// 【Swap】
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        public static void subSwap<T>(ref T a,ref T b)
+        {
+            T temp = a;
+            a = b;
+            b = temp;
         }
     }
 }
